@@ -1,0 +1,87 @@
+[gd_scene format=3 uid="uid://cxuc636krt6au"]
+
+[ext_resource type="Script" uid="uid://5t6tfj2bbtap" path="res://addons/code_recall/ui_script.gd" id="1_21s2x"]
+
+[sub_resource type="DPITexture" id="DPITexture_qvngo"]
+_source = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\"><path fill=\"#ff5d5d\" d=\"M2 1v8.586l1.293-1.293a1 1 0 0 1 1.414 0L7 10.587l2.293-2.293a1 1 0 0 1 1.414 0L13 10.586l1-1V6H9V1H2zm8 0v4h4zm-6 9.414-2 2V15h12v-2.586l-.293.293a1 1 0 0 1-1.414 0L10 10.414l-2.293 2.293a1 1 0 0 1-1.414 0L4 10.414z\"/></svg>
+"
+
+[node name="UI Scene" type="Control" unique_id=726695097]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_21s2x")
+
+[node name="VBox" type="VBoxContainer" parent="." unique_id=473861503]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBox" type="HBoxContainer" parent="VBox" unique_id=1599359354]
+layout_mode = 2
+
+[node name="ButtonDir" type="Button" parent="VBox/HBox" unique_id=1732830403]
+custom_minimum_size = Vector2(117, 39)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Choose Folder"
+
+[node name="Searchbar" type="LineEdit" parent="VBox/HBox" unique_id=1764887181]
+visible = false
+custom_minimum_size = Vector2(0, 39)
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Search code"
+clear_button_enabled = true
+right_icon = SubResource("DPITexture_qvngo")
+
+[node name="ButtonColl" type="Button" parent="VBox/HBox" unique_id=18970767]
+visible = false
+custom_minimum_size = Vector2(39, 39)
+layout_mode = 2
+tooltip_text = "Collapse all"
+icon = SubResource("DPITexture_qvngo")
+icon_alignment = 1
+
+[node name="ButtonDir2" type="Button" parent="VBox/HBox" unique_id=511236162]
+visible = false
+custom_minimum_size = Vector2(39, 39)
+layout_mode = 2
+tooltip_text = "Change directory"
+icon = SubResource("DPITexture_qvngo")
+icon_alignment = 1
+
+[node name="ButtonColor" type="ColorPickerButton" parent="VBox/HBox" unique_id=1537199367]
+visible = false
+custom_minimum_size = Vector2(44, 39)
+layout_mode = 2
+tooltip_text = "Highlight color"
+
+[node name="FolderPath" type="FileDialog" parent="VBox" unique_id=1869544018]
+oversampling_override = 1.0
+title = "Select your projects folder"
+ok_button_text = "Confirm"
+file_mode = 2
+access = 2
+hidden_files_toggle_enabled = false
+file_filter_toggle_enabled = false
+file_sort_options_enabled = false
+folder_creation_enabled = false
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBox" unique_id=934635373]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBox" type="VBoxContainer" parent="VBox/ScrollContainer" unique_id=728135274]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
