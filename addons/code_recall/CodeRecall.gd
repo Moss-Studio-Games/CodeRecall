@@ -9,12 +9,12 @@ var ui : CodeRecallUI
 
 var folder_path : String
 var timer : Timer
-var func_mode : bool = true
 var flag : bool
 const height : float = 25.0
 const offset : float = 25.0
 const transparent : Color = Color(0.0, 0.0, 0.0, 0.0)
 var highlighter : Color = Color(0.506, 0.282, 0.729, 0.376)
+var project_color : Color = EditorInterface.get_editor_settings().get_setting("interface/theme/accent_color")
 
 func _enter_tree():
 	_enable_plugin()
@@ -59,7 +59,10 @@ func get_projects(path : String):
 					## CREATE PROJECT FOLDABLE
 					var fc : FoldableContainer = FoldableContainer.new()
 					ui.code_container.add_child(fc)
-					fc.title = "[  " + file_name + "  ]"
+					fc.title = "<[   " + file_name + "   ]>"
+					fc.add_theme_color_override("font_color", project_color)
+					fc.add_theme_color_override("collapsed_font_color", project_color)
+					fc.add_theme_color_override("hover_font_color", project_color)
 					fc.title_alignment = HORIZONTAL_ALIGNMENT_CENTER
 					var vb : VBoxContainer = VBoxContainer.new()
 					fc.add_child(vb)
@@ -81,7 +84,7 @@ func get_scripts(path : String, parent : Control):
 			if dir.current_is_dir():
 				if file_name != "." and file_name != ".." and file_name != "addons":
 					get_scripts(full_path, parent)
-			elif file_name.ends_with(".gd") or file_name.ends_with(".cs"):
+			elif file_name.ends_with(".gd") or file_name.ends_with(".cs") or file_name.ends_with(".gdshader"):
 				## CREATE SCRIPT FOLDABLE
 				var fc : FoldableContainer = FoldableContainer.new()
 				parent.add_child(fc)
@@ -91,12 +94,9 @@ func get_scripts(path : String, parent : Control):
 				fc.add_child(vb)
 				vb.SIZE_EXPAND_FILL
 				fc.fold()
-				if func_mode:
-					get_funcs(full_path, vb)
-				else:
-					get_code(full_path, vb)
-				if vb.get_child_count() < 1: # Remove empty scripts
-					fc.queue_free()
+				if file_name.ends_with(".gdshader"): get_code(full_path, vb)
+				else: get_funcs(full_path, vb)
+				if vb.get_child_count() < 1: fc.queue_free() # Remove empty scripts
 			file_name = dir.get_next()
 		dir.list_dir_end()
 
@@ -124,14 +124,14 @@ func get_funcs(file_path : String, parent : Control):
 				else:
 					fc.queue_free()
 				flag = false
-			var func_declaration = trimmed.substr(5)  # Remove "func "
+			var func_declaration = trimmed.substr(5)  # Removes "func "
 			var paren_pos = func_declaration.find("(")
 			if paren_pos != -1:
 				var func_name = func_declaration.substr(0, paren_pos).strip_edges()
 				## CREATE FUNC FOLDABLE
 				fc = FoldableContainer.new()
 				parent.add_child(fc)
-				fc.title = func_name
+				fc.title = " " + func_name
 				vb = VBoxContainer.new()
 				fc.add_child(vb)
 				vb.SIZE_EXPAND_FILL
@@ -139,7 +139,6 @@ func get_funcs(file_path : String, parent : Control):
 				tf = TextEdit.new()
 				vb.add_child(tf)
 				tf.tooltip_text = "Click to copy function\nShift+Click to copy script"
-				tf.get_parent().tooltip_text = content
 				tf.highlight_all_occurrences = true
 				tf.text = trimmed
 				flag = true
@@ -172,7 +171,6 @@ func get_code(file_path : String, parent : Control):
 	tf.custom_minimum_size.y = offset + height * tf.get_line_count()
 	parent.add_child(tf)
 	tf.tooltip_text = "Left-click copy all"
-	tf.get_parent().tooltip_text = tf.text # Redundant but consistent
 	tf.highlight_all_occurrences = true
 	tf.editable = false
 	tf.gui_input.connect(copy_text.bind(tf))
@@ -206,6 +204,32 @@ func search(text : String):
 	if text != "":
 		hide_all()
 		search_code(ui.code_container, text)
+
+func search2(text : String):
+	# Reset search by default, unhighlighting is done in show_all()
+	show_all()
+	collapse_all()
+	if text == "": return
+	expand_all()
+	search_code2(ui.code_container, text)
+
+func search_code2(node : Control, text : String):
+	for child in node.get_children():
+		if child is TextEdit:
+			if child.text.containsn(text): ## TODO what did I do here fml
+				# Expand Project Foldable
+				child.get_parent().get_parent().get_parent().get_parent().get_parent().get_parent().visible = true
+				child.get_parent().get_parent().get_parent().get_parent().get_parent().get_parent().expand()
+				# Expand Script Foldable
+				child.get_parent().get_parent().get_parent().get_parent().visible = true
+				child.get_parent().get_parent().get_parent().get_parent().expand()
+				# Expand Code Foldable
+				child.get_parent().get_parent().visible = true
+				child.get_parent().get_parent().expand()
+				# Highlight Text
+				highlight_code(child, text)
+		else:
+			search_code(child, text)
 
 func search_code(node : Control, text : String):
 	for child in node.get_children():

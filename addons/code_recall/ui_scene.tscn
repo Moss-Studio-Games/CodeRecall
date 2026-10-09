@@ -51,6 +51,14 @@ tooltip_text = "Collapse all"
 icon = SubResource("DPITexture_qvngo")
 icon_alignment = 1
 
+[node name="ButtonFilter" type="Button" parent="VBox/HBox" unique_id=1331208572]
+visible = false
+custom_minimum_size = Vector2(39, 39)
+layout_mode = 2
+tooltip_text = "Filter files"
+icon = SubResource("DPITexture_qvngo")
+icon_alignment = 1
+
 [node name="ButtonDir2" type="Button" parent="VBox/HBox" unique_id=511236162]
 visible = false
 custom_minimum_size = Vector2(39, 39)
@@ -64,6 +72,54 @@ visible = false
 custom_minimum_size = Vector2(44, 39)
 layout_mode = 2
 tooltip_text = "Highlight color"
+
+[node name="FilterOptions" type="MarginContainer" parent="VBox" unique_id=421231078]
+visible = false
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="VBox/FilterOptions" unique_id=624409302]
+layout_mode = 2
+
+[node name="HBox" type="HBoxContainer" parent="VBox/FilterOptions" unique_id=1393834921]
+layout_mode = 2
+theme_override_constants/separation = 22
+alignment = 1
+
+[node name="HBox1" type="HBoxContainer" parent="VBox/FilterOptions/HBox" unique_id=1514179546]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="CheckBox" type="CheckBox" parent="VBox/FilterOptions/HBox/HBox1" unique_id=550818346]
+layout_mode = 2
+button_pressed = true
+
+[node name="GD" type="Label" parent="VBox/FilterOptions/HBox/HBox1" unique_id=997224779]
+layout_mode = 2
+text = ".gd"
+
+[node name="HBox2" type="HBoxContainer" parent="VBox/FilterOptions/HBox" unique_id=2091265203]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="CheckBox" type="CheckBox" parent="VBox/FilterOptions/HBox/HBox2" unique_id=1223327287]
+layout_mode = 2
+button_pressed = true
+
+[node name="CS" type="Label" parent="VBox/FilterOptions/HBox/HBox2" unique_id=663518549]
+layout_mode = 2
+text = ".cs"
+
+[node name="HBox3" type="HBoxContainer" parent="VBox/FilterOptions/HBox" unique_id=2060138324]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="CheckBox" type="CheckBox" parent="VBox/FilterOptions/HBox/HBox3" unique_id=157058222]
+layout_mode = 2
+button_pressed = true
+
+[node name="GDS" type="Label" parent="VBox/FilterOptions/HBox/HBox3" unique_id=997135165]
+layout_mode = 2
+text = ".gdshader"
 
 [node name="FolderPath" type="FileDialog" parent="VBox" unique_id=1869544018]
 oversampling_override = 1.0

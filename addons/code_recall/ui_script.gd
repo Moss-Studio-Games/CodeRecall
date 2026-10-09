@@ -5,16 +5,18 @@ extends Control
 @onready var button_dir : Button = $VBox/HBox/ButtonDir
 @onready var searchbar : LineEdit = $VBox/HBox/Searchbar
 @onready var button_coll : Button = $VBox/HBox/ButtonColl
+@onready var button_filter : Button = $VBox/HBox/ButtonFilter
 @onready var button_dir_2 : Button = $VBox/HBox/ButtonDir2
 @onready var button_color : ColorPickerButton = $VBox/HBox/ButtonColor
-
+@onready var filter_options : MarginContainer = $VBox/FilterOptions
 @onready var folder_path : FileDialog = $VBox/FolderPath
 @onready var scroll_container : ScrollContainer = $VBox/ScrollContainer
 @onready var code_container : VBoxContainer = $VBox/ScrollContainer/VBox
 
 signal search(text : String)
-signal directory(text : String)
 signal collapse()
+signal filter()
+signal directory(text : String)
 signal recolor()
 
 func _ready():
@@ -28,6 +30,11 @@ func _ready():
 	button_coll.icon_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	button_coll.tooltip_text = "Collapse all"
 	button_coll.pressed.connect(emit_collapse)
+	
+	button_filter.icon = get_theme_icon("AnimationFilter", "EditorIcons")
+	button_filter.icon_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	button_filter.tooltip_text = "Filter files"
+	button_filter.pressed.connect(toggle_filters)
 	
 	button_dir_2.icon = get_theme_icon("Folder", "EditorIcons")
 	button_dir_2.icon_alignment = HORIZONTAL_ALIGNMENT_CENTER
@@ -51,9 +58,13 @@ func on_directory_selected(dir_path: String):
 	button_dir.visible = false
 	searchbar.visible = true
 	button_coll.visible = true
+	button_filter.visible = true
 	button_dir_2.visible = true
 	button_color.visible = true
 	scroll_container.visible = true
+
+func toggle_filters():
+	filter_options.visible = !filter_options.visible
 
 func check_text(text : String):
 	if text == "":
@@ -64,6 +75,9 @@ func emit_search(text : String):
 
 func emit_collapse():
 	collapse.emit()
+
+func emit_filter():
+	filter.emit()
 
 func emit_recolor():
 	recolor.emit()
