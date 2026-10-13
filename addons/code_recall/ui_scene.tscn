@@ -28,6 +28,15 @@ grow_vertical = 2
 [node name="HBox" type="HBoxContainer" parent="VBox" unique_id=1599359354]
 layout_mode = 2
 
+[node name="ButtonAlert" type="Button" parent="VBox/HBox" unique_id=895264761]
+visible = false
+custom_minimum_size = Vector2(39, 39)
+layout_mode = 2
+tooltip_text = "Loading, please wait!"
+text = "Wait"
+icon = SubResource("DPITexture_qvngo")
+alignment = 2
+
 [node name="ButtonDir" type="Button" parent="VBox/HBox" unique_id=1732830403]
 custom_minimum_size = Vector2(117, 39)
 layout_mode = 2
@@ -52,7 +61,6 @@ icon = SubResource("DPITexture_qvngo")
 icon_alignment = 1
 
 [node name="ButtonFilter" type="Button" parent="VBox/HBox" unique_id=1331208572]
-visible = false
 custom_minimum_size = Vector2(39, 39)
 layout_mode = 2
 tooltip_text = "Filter files"
@@ -72,9 +80,9 @@ visible = false
 custom_minimum_size = Vector2(44, 39)
 layout_mode = 2
 tooltip_text = "Highlight color"
+color = Color(0.506, 0.282, 0.729, 0.376)
 
 [node name="FilterOptions" type="MarginContainer" parent="VBox" unique_id=421231078]
-visible = false
 layout_mode = 2
 
 [node name="Panel" type="Panel" parent="VBox/FilterOptions" unique_id=624409302]
@@ -91,7 +99,6 @@ theme_override_constants/separation = 0
 
 [node name="CheckBox" type="CheckBox" parent="VBox/FilterOptions/HBox/HBox1" unique_id=550818346]
 layout_mode = 2
-button_pressed = true
 
 [node name="GD" type="Label" parent="VBox/FilterOptions/HBox/HBox1" unique_id=997224779]
 layout_mode = 2
@@ -103,7 +110,6 @@ theme_override_constants/separation = 0
 
 [node name="CheckBox" type="CheckBox" parent="VBox/FilterOptions/HBox/HBox2" unique_id=1223327287]
 layout_mode = 2
-button_pressed = true
 
 [node name="CS" type="Label" parent="VBox/FilterOptions/HBox/HBox2" unique_id=663518549]
 layout_mode = 2
@@ -115,11 +121,24 @@ theme_override_constants/separation = 0
 
 [node name="CheckBox" type="CheckBox" parent="VBox/FilterOptions/HBox/HBox3" unique_id=157058222]
 layout_mode = 2
-button_pressed = true
 
 [node name="GDS" type="Label" parent="VBox/FilterOptions/HBox/HBox3" unique_id=997135165]
 layout_mode = 2
 text = ".gdshader"
+
+[node name="HBox4" type="HBoxContainer" parent="VBox/FilterOptions/HBox" unique_id=606448431]
+visible = false
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBox" unique_id=934635373]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBox" type="VBoxContainer" parent="VBox/ScrollContainer" unique_id=728135274]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
 [node name="FolderPath" type="FileDialog" parent="VBox" unique_id=1869544018]
 oversampling_override = 1.0
@@ -131,13 +150,3 @@ hidden_files_toggle_enabled = false
 file_filter_toggle_enabled = false
 file_sort_options_enabled = false
 folder_creation_enabled = false
-
-[node name="ScrollContainer" type="ScrollContainer" parent="VBox" unique_id=934635373]
-visible = false
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="VBox" type="VBoxContainer" parent="VBox/ScrollContainer" unique_id=728135274]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
