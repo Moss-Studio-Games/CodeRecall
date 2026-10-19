@@ -18,7 +18,6 @@ extends Control
 @onready var check_box_gdshader : CheckBox = $VBox/FilterOptions/HBox/HBox3/CheckBox
 
 var dict : Dictionary = {".gd": false, ".cs": false, ".gdshader": false}
-var highlighter : Color = Color(0.506, 0.282, 0.729, 0.376)
 
 signal search(text : String)
 signal collapse()
@@ -53,7 +52,8 @@ func _ready():
 	button_dir_2.pressed.connect(on_dir_pressed)
 	
 	button_color.tooltip_text = "Highlight color"
-	button_color.color = highlighter
+	var ed_color : Color = EditorInterface.get_editor_settings().get_setting("interface/theme/accent_color")
+	button_color.color = Color(ed_color.r, ed_color.g, ed_color.b, 0.376)
 	button_color.popup_closed.connect(emit_recolor)
 	
 	folder_path.file_mode = FileDialog.FILE_MODE_OPEN_DIR

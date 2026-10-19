@@ -80,7 +80,7 @@ visible = false
 custom_minimum_size = Vector2(44, 39)
 layout_mode = 2
 tooltip_text = "Highlight color"
-color = Color(0.506, 0.282, 0.729, 0.376)
+color = Color(0.67058825, 0.25490198, 0.015686275, 0.376)
 
 [node name="FilterOptions" type="MarginContainer" parent="VBox" unique_id=421231078]
 layout_mode = 2
