@@ -1,0 +1,15 @@
+CodeRecall
+
+I wrote this for myself. With this plugin you can read and copy your local code from other projects without opening them.
+Usage (directly from Godot):
+1. Download CodeRecall from Asset Store (top part of the Editor near 2D, 3D, Script, Game, ...)
+2. Enable it in Project -> Project Settings -> Plugins
+3. Find the new tab on the right (along with Inspector, Signal, Groups, ...)
+4. Specify a folder (the plugin will scan for .gd/.gdshader/.cs scripts as needed)
+5. Wait, this can take >10s (suggestions are welcomed)
+6. Use search bar to search your code
+Options:
+- Change highlight color
+- Copy part of the function -> Click Hold + Drag
+- Copy the entire function -> Click
+- Copy the entire script -> Shift + Click
